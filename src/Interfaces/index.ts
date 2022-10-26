@@ -1,4 +1,5 @@
 export interface SWPeople {
+    id: string
     results: any[]
     name: string
     height: string

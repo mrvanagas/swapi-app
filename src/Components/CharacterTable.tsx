@@ -32,11 +32,8 @@ const CharacterTable = () => {
           {charData.map((character: any) => (
             <TableRow key={character.name}>
               <TableCell>{character.name}</TableCell>
-              <TableCell >
-                <Link to={'/character'}>
-                Details {character.url}
-                Id: {character.id}
-                </Link>
+              <TableCell id={character.id}>
+                  <Link to={`/character/${character.id}`}>More details</Link>
                 </TableCell>
             </TableRow>
           ))}

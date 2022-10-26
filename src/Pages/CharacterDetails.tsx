@@ -1,36 +1,54 @@
 import { Container, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getCharacter } from '../Api/api';
 
-const CharacterDetails = () => {
-  const [character, setCharacter] = useState<any>([]);
-  
-    useEffect(() => {
-      axios.get('https://swapi.dev/api/people/1')
-      .then((res) => {
-        console.log(res)
-        setCharacter(res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    }, [])
 
-    return (
-      <Container>
-        <Card elevation={0} variant="outlined">
-          <Typography>Name is {character.name}</Typography>
-          <Typography>Height is {character.height}</Typography>
-          <Typography>Weight is {character.mass}</Typography>
-          <Typography>Hair color is {character.hair_color}</Typography>
-          <Typography>Eye color is {character.eye_color}</Typography>
-          <Typography>Skin color is {character.skin_color}</Typography>
-          <Typography>Birth date  is {character.birth_year}</Typography>
-          <Typography>Gender is {character.gender}</Typography>
-        </Card>
-      </Container>
-    );
+const CharacterDetails = (): JSX.Element => {
+  const [character, setCharacter] = useState<any | null>([]);
+
+  const { id } = useParams();
+
+  const handleCharacterRequest = async (id) => {
+    try {
+      const results = await getCharacter(id);
+      setCharacter(results);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    console.log(id)
+    handleCharacterRequest(id)
+  }, [])
+
+  // useEffect(() => {
+  //   axios.get(`https://swapi.dev/api/people/${id}`)
+  //   .then((res) => {
+  //     console.log(res)
+  //     setCharacter(res.data)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  // }, [])
+
+  return (
+    <Container>
+      <Card elevation={0} variant="outlined">
+        <Typography>Name is {character.name}</Typography>
+        <Typography>Height is {character.height}</Typography>
+        <Typography>Weight is {character.mass}</Typography>
+        <Typography>Hair color is {character.hair_color}</Typography>
+        <Typography>Eye color is {character.eye_color}</Typography>
+        <Typography>Skin color is {character.skin_color}</Typography>
+        <Typography>Birth date is {character.birth_year}</Typography>
+        <Typography>Gender is {character.gender}</Typography>
+      </Card>
+    </Container>
+  );
+};
 
 export default CharacterDetails;
