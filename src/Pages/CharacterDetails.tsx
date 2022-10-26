@@ -2,11 +2,13 @@ import { Container, Typography } from '@mui/material';
 import Card from '@mui/material/Card';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCharacter } from '../Api/api';
+import { getCharacter, getFilmInfo } from '../Api/api';
+import FilmList from '../Components/FilmList';
 
 
 const CharacterDetails = (): JSX.Element => {
   const [character, setCharacter] = useState<any | null>([]);
+  const [films, setFilms] = useState<any | null>({})
 
   const { id } = useParams();
 
@@ -19,10 +21,32 @@ const CharacterDetails = (): JSX.Element => {
     }
   };
 
+  const handleFilmRequest = async (data) => {
+    try {
+      const { films_url } = data;
+      if (films_url) {
+        const result = await Promise.all(
+          films_url.map((url) => {
+            return getFilmInfo(url)
+          })
+        );
+        setFilms(result)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
-    console.log(id)
     handleCharacterRequest(id)
   }, [])
+
+
+  // useEffect(() => {
+  //   if (character) {
+  //     handleFilmRequest(character.films)
+  //   }
+  // }, [])
 
   // useEffect(() => {
   //   axios.get(`https://swapi.dev/api/people/${id}`)
@@ -46,6 +70,10 @@ const CharacterDetails = (): JSX.Element => {
         <Typography>Skin color is {character.skin_color}</Typography>
         <Typography>Birth date is {character.birth_year}</Typography>
         <Typography>Gender is {character.gender}</Typography>
+        <Typography>
+          Appeared in these films:
+          {/* <div>{films && <FilmList films={films} />}</div> */}
+        </Typography>
       </Card>
     </Container>
   );

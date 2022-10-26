@@ -4,18 +4,20 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
+  TableRow
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getCharacters } from '../Api/api';
+import HomePagination from './HomePagination';
 
 const CharacterTable = () => {
   const [charData, setCharData] = useState<any | null>([]);
+  const [page, setPage] = useState<number>(1)
 
   useEffect(() => {
-    getCharacters().then(setCharData)
-  }, [])
+    getCharacters(page).then(setCharData)
+  }, [page])
 
   console.log(charData)
 
@@ -39,6 +41,7 @@ const CharacterTable = () => {
           ))}
         </TableBody>
       </Table>
+      <HomePagination setPage={setPage}/>
     </TableContainer>
   );
 };
