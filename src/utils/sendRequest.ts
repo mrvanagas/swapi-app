@@ -14,7 +14,7 @@ function getOptions(endpoint: string): AxiosRequestConfig {
   };
   return preset;
 }
-
+//TODO add error handling
 async function sendRequest(endpoint: string): Promise<any> {
   const config: AxiosRequestConfig = getOptions(endpoint);
   const { data } = await instance(config);

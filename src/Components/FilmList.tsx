@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Container, Card, CardContent, Typography } from '@mui/material';
 
-const FilmList = (data) => {
-  const [films, setFilms] = useState<any>();
+const FilmList = (data): JSX.Element => {
+  const [films, setFilms] = useState<any>([]);
 
   useEffect(() => {
     const { films } = data;
-    setFilms(films);
+    const sortByDescending = (obj) => {
+      return obj.sort((a, b) => {
+        return Date.parse(b.release_date) - Date.parse(a.release_date);
+      });
+    };
+    setFilms(sortByDescending(films));
   }, [data]);
 
   return (
     <Container>
       {films &&
-        films.map((film: any) => (
-          <Card sx={{ minWidth: 300 }} key={film.title}>
+        films.map((film) => (
+          <Card sx={{ maxWidth: 300 }} key={film.title}>
             <CardContent>
-              <Typography variant="h5" component="div">
+              <Typography variant="h6" component="div">
                 {film.title}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">

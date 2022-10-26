@@ -7,40 +7,48 @@ import { Link } from 'react-router-dom';
 
 const Searchbar = () => {
   const [inputValue, setInputValue] = useState('');
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    let timerID: any
+    let timerID: any;
 
     if (inputValue.length > minCharacters) {
       timerID = setTimeout(async () => {
         try {
-          const results = await getSeachResults(inputValue)
-          setSearchResults(results)
+          const results = await getSeachResults(inputValue);
+          setSearchResults(results);
         } catch (err) {
-          alert(err)
+          alert(err);
         }
-      }, 1000)
+      }, 1000);
     }
-    return () => {
-      clearTimeout(timerID)
-    }
-  }, [inputValue])
 
-  const searchValueHandler = value => {
-    setInputValue(value)
-  }
+    return () => {
+      clearTimeout(timerID);
+    };
+  }, [inputValue]);
+
+  const searchValueHandler = (value) => {
+    setInputValue(value);
+  };
 
   return (
     <>
       <Typography>Search Characters</Typography>
-      <TextField id="outlined-basic" fullWidth value={inputValue} onChange={event => searchValueHandler(event.target.value)}/>
+      <TextField
+        id="outlined-basic"
+        fullWidth
+        value={inputValue}
+        onChange={(event) => searchValueHandler(event.target.value)}
+      />
       <Dropdown>
         {inputValue.length > minCharacters ? (
           <DropdownRow>
-            {searchResults.map(result => (
+            {searchResults.map((result) => (
               <div key={result.id}>
-                <Link to={`/character/${result.id}`}><span>{`${result.name}`}</span></Link>
+                <Link to={`/character/${result.id}`}>
+                  <span>{`${result.name}`}</span>
+                </Link>
               </div>
             ))}
           </DropdownRow>

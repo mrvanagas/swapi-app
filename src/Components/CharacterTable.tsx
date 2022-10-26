@@ -19,8 +19,6 @@ const CharacterTable = () => {
     getCharacters(page).then(setCharData)
   }, [page])
 
-  console.log(charData)
-
   return (
     <TableContainer>
       <Table>
