@@ -10,12 +10,12 @@ import { Link } from 'react-router-dom';
 import HomePagination from './HomePagination';
 
 interface CharacterTableProps {
-  charactersList: any,
+  charactersList,
   page: number,
   setPage
 }
 
-const CharacterTable = ({ charactersList, setPage }: CharacterTableProps) => {
+const CharacterTable = ({ charactersList, setPage }: CharacterTableProps): JSX.Element => {
 
   return (
     <TableContainer>

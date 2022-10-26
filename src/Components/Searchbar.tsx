@@ -29,7 +29,7 @@ const SearchBar = ({ setCharacterList }: SearchBarProps): JSX.Element => {
     };
   }, [inputValue, setCharacterList]);
 
-  const searchValueHandler = (value) => {
+  const searchValueHandler = (value: string) => {
     setInputValue(value);
   };
 

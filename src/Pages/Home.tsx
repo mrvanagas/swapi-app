@@ -14,7 +14,6 @@ const Home = (): JSX.Element => {
 
   return (
     <Container>
-      {/* <Searchbar /> */}
       <SearchBar setCharacterList={setCharacterList} />
       <CharacterTable
         charactersList={searchResults}

@@ -12,7 +12,7 @@ const CharacterDetails = (): JSX.Element => {
 
   const { id } = useParams();
 
-  const handleCharacterRequest = async (id) => {
+  const handleCharacterRequest = async (id: string) => {
     try {
       const characterResult = await getCharacter(id);
 

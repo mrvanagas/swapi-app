@@ -2,7 +2,7 @@ import { Pagination } from '@mui/material'
 
 const HomePagination = ({setPage}) => {
   
-    const clickHandler = (page) => {
+    const clickHandler = (page: number) => {
       setPage(page)
     }
 
