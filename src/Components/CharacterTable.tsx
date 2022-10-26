@@ -6,18 +6,16 @@ import {
   TableHead,
   TableRow
 } from '@mui/material';
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getCharacters } from '../Api/api';
 import HomePagination from './HomePagination';
 
-const CharacterTable = () => {
-  const [charData, setCharData] = useState<any | null>([]);
-  const [page, setPage] = useState<number>(1)
+interface CharacterTableProps {
+  charactersList: any,
+  page: number,
+  setPage
+}
 
-  useEffect(() => {
-    getCharacters(page).then(setCharData)
-  }, [page])
+const CharacterTable = ({ charactersList, setPage }: CharacterTableProps) => {
 
   return (
     <TableContainer>
@@ -29,7 +27,7 @@ const CharacterTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {charData.map((character: any) => (
+          {charactersList.map((character: any) => (
             <TableRow key={character.name}>
               <TableCell>{character.name}</TableCell>
               <TableCell id={character.id}>

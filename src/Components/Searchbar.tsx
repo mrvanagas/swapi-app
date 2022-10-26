@@ -1,13 +1,14 @@
 import { TextField, Typography } from '@mui/material';
-import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 import { getSeachResults } from '../Api/api';
 import { minCharacters } from '../utils/constants';
-import { Link } from 'react-router-dom';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-const Searchbar = () => {
+interface SearchBarProps {
+  setCharacterList: Dispatch<SetStateAction<any[]>>;
+}
+
+const SearchBar = ({ setCharacterList }: SearchBarProps): JSX.Element => {
   const [inputValue, setInputValue] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     let timerID: any;
@@ -15,8 +16,8 @@ const Searchbar = () => {
     if (inputValue.length > minCharacters) {
       timerID = setTimeout(async () => {
         try {
-          const results = await getSeachResults(inputValue);
-          setSearchResults(results);
+          const results: any[] = await getSeachResults(inputValue);
+          setCharacterList(results);
         } catch (err) {
           alert(err);
         }
@@ -26,7 +27,7 @@ const Searchbar = () => {
     return () => {
       clearTimeout(timerID);
     };
-  }, [inputValue]);
+  }, [inputValue, setCharacterList]);
 
   const searchValueHandler = (value) => {
     setInputValue(value);
@@ -41,36 +42,7 @@ const Searchbar = () => {
         value={inputValue}
         onChange={(event) => searchValueHandler(event.target.value)}
       />
-      <Dropdown>
-        {inputValue.length > minCharacters ? (
-          <DropdownRow>
-            {searchResults.map((result) => (
-              <div key={result.id}>
-                <Link to={`/character/${result.id}`}>
-                  <span>{`${result.name}`}</span>
-                </Link>
-              </div>
-            ))}
-          </DropdownRow>
-        ) : null}
-      </Dropdown>
     </>
   );
 };
-
-const Dropdown = styled.div`
-  opacity: 0.5;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid gray;
-  &:empty {
-    border: none;
-  }
-`;
-const DropdownRow = styled.div`
-  cursor: pointer;
-  text-align: start;
-  margin: 2px 0;
-`;
-
-export default Searchbar;
+export default SearchBar;
