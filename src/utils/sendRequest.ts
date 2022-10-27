@@ -21,7 +21,7 @@ async function sendRequest(endpoint: string): Promise<any> {
     const { data } = await instance(config);
     return data;
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
   
 }

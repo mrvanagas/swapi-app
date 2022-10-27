@@ -29,11 +29,9 @@ const CharacterDetails = (): JSX.Element => {
       setCharacter(characterResult);
       setFilms(filmsResult);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
-
-  console.log(character);
 
   useEffect(() => {
     handleCharacterRequest(id);
