@@ -14,11 +14,16 @@ function getOptions(endpoint: string): AxiosRequestConfig {
   };
   return preset;
 }
-//TODO add error handling
+
 async function sendRequest(endpoint: string): Promise<any> {
   const config: AxiosRequestConfig = getOptions(endpoint);
-  const { data } = await instance(config);
-  return data;
+  try {
+    const { data } = await instance(config);
+    return data;
+  } catch (err) {
+    console.log(err)
+  }
+  
 }
 
 export default sendRequest;

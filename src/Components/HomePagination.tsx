@@ -7,7 +7,7 @@ const HomePagination = ({setPage}) => {
     }
 
   return (
-    <Pagination count={9} onChange={(e, value) => clickHandler(value)}/>
+    <Pagination sx={{ marginLeft: '23rem', paddingTop: '2rem' }} count={9} onChange={(e, value) => clickHandler(value)}/>
   )
 }
 

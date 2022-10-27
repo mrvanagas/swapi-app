@@ -8,10 +8,11 @@ import {
 } from '@mui/material';
 import ApiIcon from '@mui/icons-material/Api';
 import { Link } from 'react-router-dom';
+import { buttonStyles, navBarStyles } from '../utils/stylings';
 
 const Navbar = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" {...navBarStyles}>
       <Toolbar>
         <IconButton size="large" edge="start">
           <ApiIcon />
@@ -20,14 +21,14 @@ const Navbar = () => {
           SWAPI App
         </Typography>
       <Stack spacing={2} direction="row">
-        <Button variant="contained" color='secondary'>
+        <Button variant="contained" color='secondary' {...buttonStyles}>
           <Link to="/">
             <Typography>
                 Home
             </Typography>
             </Link>
         </Button>
-        <Button variant="contained" color='secondary'>
+        <Button variant="contained" color='secondary' {...buttonStyles}>
           <Link to="/about">About</Link>
         </Button>
       </Stack>

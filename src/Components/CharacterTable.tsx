@@ -7,6 +7,7 @@ import {
   TableRow
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { headCellStyles, rowCellStyles } from '../utils/stylings';
 import HomePagination from './HomePagination';
 
 interface CharacterTableProps {
@@ -20,16 +21,16 @@ const CharacterTable = ({ charactersList, setPage }: CharacterTableProps): JSX.E
   return (
     <TableContainer>
       <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Details</TableCell>
+        <TableHead >
+          <TableRow >
+            <TableCell {...headCellStyles}>Name</TableCell>
+            <TableCell {...headCellStyles}>Details</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {charactersList.map((character: any) => (
-            <TableRow key={character.name}>
-              <TableCell>{character.name}</TableCell>
+            <TableRow {...rowCellStyles} key={character.name}>
+              <TableCell  >{character.name}</TableCell>
               <TableCell id={character.id}>
                   <Link to={`/character/${character.id}`}>More details</Link>
                 </TableCell>
@@ -37,7 +38,7 @@ const CharacterTable = ({ charactersList, setPage }: CharacterTableProps): JSX.E
           ))}
         </TableBody>
       </Table>
-      <HomePagination setPage={setPage}/>
+      <HomePagination setPage={setPage} />
     </TableContainer>
   );
 };

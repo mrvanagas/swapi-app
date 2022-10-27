@@ -1,7 +1,8 @@
-import { TextField, Typography } from '@mui/material';
+import { TextField } from '@mui/material';
 import { getSeachResults } from '../Api/api';
 import { minCharacters } from '../utils/constants';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { textFieldStyles } from '../utils/stylings';
 
 interface SearchBarProps {
   setCharacterList: Dispatch<SetStateAction<any[]>>;
@@ -34,15 +35,14 @@ const SearchBar = ({ setCharacterList }: SearchBarProps): JSX.Element => {
   };
 
   return (
-    <>
-      <Typography>Search Characters</Typography>
       <TextField
         id="outlined-basic"
         fullWidth
         value={inputValue}
         onChange={(event) => searchValueHandler(event.target.value)}
+        placeholder='Search for characters'
+        {...textFieldStyles}
       />
-    </>
   );
 };
 export default SearchBar;
