@@ -5,8 +5,6 @@ import {
   Table,
   Typography,
   TableHead,
-  TableRow,
-  TableCell,
   TableBody,
 } from '@mui/material';
 import Card from '@mui/material/Card';
@@ -15,23 +13,8 @@ import { useParams } from 'react-router-dom';
 import { getCharacter, getCharacterFilms } from '../Api/api';
 import FilmList from '../Components/FilmList';
 import Spinner from '../Components/LoadingSpinner';
-import { headCellStyles, rowCellStyles } from '../utils/stylings';
-
-const headerTitles = [
-  'Name',
-  'Height',
-  'Weight',
-  'Hair Color',
-  'Eye Color',
-  'Skin Color',
-  'Birth Date',
-  'Gender',
-];
-const headerList = headerTitles.map((title) => (
-  <TableCell {...headCellStyles} key={title}>
-    {title}
-  </TableCell>
-));
+import CharacterRow from '../Components/CharacterRow';
+import CharacterTableHeader from '../Components/CharacterTableHeader';
 
 const CharacterDetails = (): JSX.Element => {
   const [character, setCharacter] = useState<any | null>([]);
@@ -59,53 +42,24 @@ const CharacterDetails = (): JSX.Element => {
   return (
     <Container>
       <Card elevation={0} variant="outlined">
-        <CardContent>
-          {character.length !== 0 ? (
+        {character.length !== 0 ? (
+          <CardContent>
             <Table>
               <TableHead>
-                <TableRow>{headerList}</TableRow>
+                <CharacterTableHeader />
               </TableHead>
               <TableBody>
-                <TableRow {...rowCellStyles}>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.name}
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.height}
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.mass}
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.hair_color}
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.eye_color}
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.skin_color}
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.birth_year}
-                  </TableCell>
-                  <TableCell sx={{ paddingLeft: '50px' }}>
-                    {character.gender}
-                  </TableCell>
-                </TableRow>
+                <CharacterRow character={character} />
               </TableBody>
             </Table>
-          ) : (
-            <Spinner />
-          )}
-          <Typography sx={{ paddingLeft: '25rem' }}>
-            Appeared in these films:
-          </Typography>
-          {films[0] ? (
-            <div>{films && <FilmList films={films} />}</div>
-          ) : (
-            <Spinner />
-          )}
-        </CardContent>
+            <Typography sx={{ paddingLeft: '25rem' }}>
+              Appeared in these films:
+            </Typography>
+            {films && <div>{films && <FilmList films={films} />}</div>}
+          </CardContent>
+        ) : (
+          <Spinner />
+        )}
       </Card>
     </Container>
   );
