@@ -11,9 +11,9 @@ import { headCellStyles, rowCellStyles } from '../utils/stylings';
 import HomePagination from './HomePagination';
 
 interface CharacterTableProps {
-  charactersList,
+  charactersList: any,
   page: number,
-  setPage
+  setPage: any
 }
 
 const CharacterTable = ({ charactersList, setPage }: CharacterTableProps): JSX.Element => {

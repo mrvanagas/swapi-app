@@ -2,6 +2,7 @@ import { Container } from '@mui/material';
 import { SetStateAction, useEffect, useState } from 'react';
 import { getCharacters } from '../Api/api';
 import CharacterTable from '../Components/CharacterTable';
+import Spinner from '../Components/LoadingSpinner';
 import SearchBar from '../Components/SearchBar';
 
 const Home = (): JSX.Element => {
@@ -15,11 +16,16 @@ const Home = (): JSX.Element => {
   return (
     <Container>
       <SearchBar setCharacterList={setCharacterList} />
-      <CharacterTable
+      { searchResults.length !== 0 ? (
+        <CharacterTable
         charactersList={searchResults}
         page={page}
         setPage={setPage}
-      />
+        />
+        ) : (
+          <Spinner />
+        )
+      }
     </Container>
   );
 };
